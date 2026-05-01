@@ -8,16 +8,18 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { loadFont } from "@remotion/google-fonts/Inter";
+import { loadFont } from "@remotion/google-fonts/Outfit";
+import { loadFont as loadFontMono } from "@remotion/google-fonts/JetBrainsMono";
 
 const { fontFamily } = loadFont();
+const { fontFamily: monoFamily } = loadFontMono();
 
-const BG = "#121117";
-const CREAM = "#F5EFE6";
+const BG = "#0a0a0f";
+const CREAM = "#faf4ec";
 const ORANGE = "#d74939";
 const ORANGE_LIGHT = "#ff8163";
-const MUTED = "#A8A0B0";
-const CARD = "#1A1922";
+const MUTED = "rgba(250, 244, 236, 0.55)";
+const CARD = "#1a1920";
 const LOGO_WHITE =
   "https://cdn.prod.website-files.com/5e4e54db58d02b857909aa5e/677c10559f51353fed1c27b0_logo-white.svg";
 
@@ -50,6 +52,22 @@ function wp(frame: number, delay = 0, dur = 16) {
 }
 
 // ─── Shared elements ──────────────────────────────────────────────────────────
+
+const Eyebrow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+    <div style={{ width: 24, height: 1, backgroundColor: ORANGE, flexShrink: 0 }} />
+    <div style={{
+      fontFamily: monoFamily,
+      fontSize: 14,
+      fontWeight: 600,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.08em",
+      color: ORANGE,
+    }}>
+      {children}
+    </div>
+  </div>
+);
 
 const DotGrid: React.FC<{ opacity?: number }> = ({ opacity = 0.18 }) => (
   <AbsoluteFill
@@ -185,10 +203,11 @@ const LogoIntro: React.FC = () => {
           style={{
             ...tagSty,
             color: MUTED,
-            fontSize: 28,
-            fontFamily,
-            letterSpacing: "0.14em",
-            fontWeight: 400,
+            fontSize: 16,
+            fontFamily: monoFamily,
+            letterSpacing: "0.08em",
+            fontWeight: 600,
+            textTransform: "uppercase",
           }}
         >
           Real-time web access for AI
@@ -233,9 +252,9 @@ const OpeningStatement: React.FC = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
         {[
           { text: "The internet wasn't built", color: CREAM, size: 80, weight: 700, delay: 0 },
-          { text: "for machines.", color: ORANGE, size: 96, weight: 800, delay: 20 },
+          { text: "for machines.", color: ORANGE, size: 96, weight: 900, delay: 20 },
           { text: "It was built for humans.", color: CREAM, size: 80, weight: 700, delay: 46, mt: 14 },
-          { text: "We bridge the gap.", color: CREAM, size: 80, weight: 800, delay: 70 },
+          { text: "We bridge the gap.", color: CREAM, size: 80, weight: 900, delay: 70 },
         ].map(({ text, color, size, weight, delay, mt }, i) => (
           <div key={i} style={{ overflow: "hidden", marginTop: mt ?? 0 }}>
             <div
@@ -245,7 +264,8 @@ const OpeningStatement: React.FC = () => {
                 fontSize: size,
                 fontFamily,
                 fontWeight: weight,
-                lineHeight: 1.08,
+                lineHeight: 1.05,
+                letterSpacing: "-0.04em",
               }}
             >
               {text}
@@ -349,23 +369,24 @@ const ProductStatement: React.FC = () => {
         <div
           style={{
             ...w1,
-            color: ORANGE,
             fontSize: 148,
             fontFamily,
-            fontWeight: 800,
+            fontWeight: 900,
             lineHeight: 1,
-            letterSpacing: "-0.02em",
-            textShadow: `0 0 120px ${ORANGE}55, 0 0 50px ${ORANGE}33`,
+            letterSpacing: "-0.04em",
+            background: `linear-gradient(135deg, ${ORANGE} 0%, ${ORANGE_LIGHT} 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: `drop-shadow(0 0 60px ${ORANGE}44)`,
           }}
         >
           Massive
         </div>
-        <div style={{ ...w2, color: CREAM, fontSize: 54, fontFamily, fontWeight: 500 }}>
+        <div style={{ ...w2, color: CREAM, fontSize: 54, fontFamily, fontWeight: 300, letterSpacing: "-0.02em" }}>
           is real-time web access
         </div>
-        <div
-          style={{ ...w3, color: ORANGE_LIGHT, fontSize: 70, fontFamily, fontWeight: 700 }}
-        >
+        <div style={{ ...w3, color: ORANGE_LIGHT, fontSize: 70, fontFamily, fontWeight: 800, letterSpacing: "-0.03em" }}>
           for AI.
         </div>
       </div>
@@ -524,25 +545,17 @@ const UseCaseSlide: React.FC<UseCaseProps> = ({
       <DotGrid />
       <Brackets frame={frame} />
 
-      {/* Pill — absolute over both halves */}
+      {/* Eyebrow label */}
       <div
         style={{
           ...pillSty,
           position: "absolute",
           top: 96,
           left: 100,
-          backgroundColor: ORANGE,
-          color: "#fff",
-          padding: "8px 24px",
-          borderRadius: 40,
-          fontSize: 22,
-          fontFamily,
-          fontWeight: 600,
-          letterSpacing: "0.06em",
           zIndex: 2,
         }}
       >
-        Use Case {number}
+        <Eyebrow>Use Case {number}</Eyebrow>
       </div>
 
       {/* 50/50 split */}
@@ -556,7 +569,7 @@ const UseCaseSlide: React.FC<UseCaseProps> = ({
           padding: "0 60px 0 100px",
         }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
-            <div style={{ ...titleSty, color: CREAM, fontSize: 82, fontFamily, fontWeight: 800, lineHeight: 1 }}>
+            <div style={{ ...titleSty, color: CREAM, fontSize: 82, fontFamily, fontWeight: 900, lineHeight: 1, letterSpacing: "-0.04em" }}>
               {title}
             </div>
             <div style={{ height: 2, width: lineW, backgroundColor: ORANGE, opacity: 0.55 }} />
@@ -614,13 +627,13 @@ const HowToUse: React.FC = () => {
         minWidth: 340,
       }}
     >
-      <div style={{ color: ORANGE, fontSize: 52, fontFamily, fontWeight: 800, marginBottom: 10 }}>
+      <div style={{ color: ORANGE, fontSize: 13, fontFamily: monoFamily, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 14 }}>
         {n}
       </div>
-      <div style={{ color: CREAM, fontSize: 34, fontFamily, fontWeight: 600, lineHeight: 1.3 }}>
+      <div style={{ color: CREAM, fontSize: 34, fontFamily, fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
         {title}
       </div>
-      <div style={{ color: MUTED, fontSize: 22, fontFamily, marginTop: 8 }}>{sub}</div>
+      <div style={{ color: MUTED, fontSize: 20, fontFamily: monoFamily, fontWeight: 400, marginTop: 8 }}>{sub}</div>
     </div>
   );
 
@@ -637,8 +650,9 @@ const HowToUse: React.FC = () => {
             color: CREAM,
             fontSize: 72,
             fontFamily,
-            fontWeight: 800,
+            fontWeight: 900,
             lineHeight: 1,
+            letterSpacing: "-0.04em",
           }}
         >
           Get started in seconds
@@ -732,9 +746,10 @@ const Outro: React.FC = () => {
           style={{
             ...urlSty,
             color: MUTED,
-            fontSize: 32,
-            fontFamily,
-            letterSpacing: "0.18em",
+            fontSize: 16,
+            fontFamily: monoFamily,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
           }}
         >
           joinmassive.com

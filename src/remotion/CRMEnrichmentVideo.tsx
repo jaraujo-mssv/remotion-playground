@@ -8,16 +8,18 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { loadFont } from "@remotion/google-fonts/Inter";
+import { loadFont } from "@remotion/google-fonts/Outfit";
+import { loadFont as loadFontMono } from "@remotion/google-fonts/JetBrainsMono";
 
 const { fontFamily } = loadFont();
+const { fontFamily: monoFamily } = loadFontMono();
 
-const BG = "#121117";
-const CREAM = "#F5EFE6";
+const BG = "#0a0a0f";
+const CREAM = "#faf4ec";
 const ORANGE = "#d74939";
 const ORANGE_LIGHT = "#ff8163";
-const MUTED = "#A8A0B0";
-const CARD = "#1A1922";
+const MUTED = "rgba(250, 244, 236, 0.55)";
+const CARD = "#1a1920";
 const LOGO_WHITE =
   "https://cdn.prod.website-files.com/5e4e54db58d02b857909aa5e/677c10559f51353fed1c27b0_logo-white.svg";
 
@@ -49,6 +51,22 @@ function wp(frame: number, delay = 0, dur = 16) {
 }
 
 // ─── Shared ───────────────────────────────────────────────────────────────────
+
+const Eyebrow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+    <div style={{ width: 24, height: 1, backgroundColor: ORANGE, flexShrink: 0 }} />
+    <div style={{
+      fontFamily: monoFamily,
+      fontSize: 14,
+      fontWeight: 600,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.08em",
+      color: ORANGE,
+    }}>
+      {children}
+    </div>
+  </div>
+);
 
 const DotGrid: React.FC<{ opacity?: number }> = ({ opacity = 0.16 }) => (
   <AbsoluteFill
@@ -115,14 +133,18 @@ const Hook: React.FC = () => {
             <div
               style={{
                 ...wp(frame, delay),
-                color: orange ? ORANGE : CREAM,
                 fontSize: large ? 110 : 80,
                 fontFamily,
-                fontWeight: 800,
+                fontWeight: 900,
                 lineHeight: 1.05,
-                ...(orange && {
-                  textShadow: `0 0 80px ${ORANGE}44`,
-                }),
+                letterSpacing: "-0.04em",
+                ...(orange ? {
+                  background: `linear-gradient(135deg, ${ORANGE} 0%, ${ORANGE_LIGHT} 100%)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: `drop-shadow(0 0 40px ${ORANGE}44)`,
+                } : { color: CREAM }),
               }}
             >
               {text}
@@ -179,8 +201,8 @@ const TheProblem: React.FC = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
         {/* Old way */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div style={{ ...head, color: MUTED, fontSize: 26, fontFamily, fontWeight: 600, letterSpacing: "0.12em" }}>
-            THE OLD WAY
+          <div style={head}>
+            <Eyebrow>The Old Way</Eyebrow>
           </div>
           <div style={{ height: 1, width: dividerW, backgroundColor: MUTED, opacity: 0.3 }} />
           <OldWayRow label="Pay $0.50–$2 per contact" frame={frame} delay={18} strike />
@@ -190,8 +212,8 @@ const TheProblem: React.FC = () => {
 
         {/* New way */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ ...subhead, color: ORANGE, fontSize: 26, fontFamily, fontWeight: 600, letterSpacing: "0.12em" }}>
-            THE MASSIVE WAY
+          <div style={subhead}>
+            <Eyebrow>The Massive Way</Eyebrow>
           </div>
           <div
             style={{
@@ -199,8 +221,9 @@ const TheProblem: React.FC = () => {
               color: CREAM,
               fontSize: 52,
               fontFamily,
-              fontWeight: 700,
-              lineHeight: 1.2,
+              fontWeight: 800,
+              lineHeight: 1.15,
+              letterSpacing: "-0.03em",
             }}
           >
             Real-time data from the web — at AI pricing.
@@ -247,13 +270,13 @@ const StepScene: React.FC<StepProps> = ({ num, title, sub, bullets, renderGraphi
           padding: "0 60px 0 100px",
         }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <div style={{ ...numSty, color: ORANGE, fontSize: 96, fontFamily, fontWeight: 800, lineHeight: 1, textShadow: `0 0 60px ${ORANGE}44` }}>
-              {num}
+            <div style={numSty}>
+              <Eyebrow>Step {num}</Eyebrow>
             </div>
-            <div style={{ ...titleSty, color: CREAM, fontSize: 72, fontFamily, fontWeight: 800, lineHeight: 1.05 }}>
+            <div style={{ ...titleSty, color: CREAM, fontSize: 72, fontFamily, fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.04em" }}>
               {title}
             </div>
-            <div style={{ ...subSty, color: MUTED, fontSize: 32, fontFamily, fontWeight: 400 }}>
+            <div style={{ ...subSty, color: MUTED, fontSize: 22, fontFamily: monoFamily, fontWeight: 400 }}>
               {sub}
             </div>
             <div style={{ height: 2, width: divW, backgroundColor: ORANGE, opacity: 0.5 }} />
@@ -548,10 +571,10 @@ const CostComparison: React.FC = () => {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ ...headSty, color: CREAM, fontSize: 72, fontFamily, fontWeight: 800, lineHeight: 1 }}>
+          <div style={{ ...headSty, color: CREAM, fontSize: 72, fontFamily, fontWeight: 900, lineHeight: 1, letterSpacing: "-0.04em" }}>
             A fraction of the cost.
           </div>
-          <div style={{ ...subSty, color: MUTED, fontSize: 36, fontFamily, fontWeight: 400 }}>
+          <div style={{ ...subSty, color: MUTED, fontSize: 28, fontFamily, fontWeight: 300 }}>
             Real-time enrichment at AI pricing — not legacy database rates.
           </div>
         </div>
@@ -700,10 +723,10 @@ const Outro: React.FC = () => {
         <div style={logoSty}>
           <Img src={LOGO_WHITE} style={{ height: 72 }} />
         </div>
-        <div style={{ ...line1, color: CREAM, fontSize: 36, fontFamily, fontWeight: 600 }}>
+        <div style={{ ...line1, color: CREAM, fontSize: 36, fontFamily, fontWeight: 700, letterSpacing: "-0.02em" }}>
           Start enriching your CRM today
         </div>
-        <div style={{ ...line2, color: MUTED, fontSize: 28, fontFamily, letterSpacing: "0.14em" }}>
+        <div style={{ ...line2, color: MUTED, fontSize: 16, fontFamily: monoFamily, letterSpacing: "0.08em", textTransform: "uppercase" }}>
           joinmassive.com
         </div>
       </div>
