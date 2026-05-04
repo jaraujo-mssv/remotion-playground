@@ -738,18 +738,13 @@ const Outro: React.FC = () => {
 
 export const CRMEnrichmentVideo: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: BG }}>
-    {/* 1 – Hook (0–75) */}
-    <Sequence from={0} durationInFrames={75}>
+    <Sequence name="01 - Hook" from={0} durationInFrames={75}>
       <Hook />
     </Sequence>
-
-    {/* 2 – Problem (75–195) */}
-    <Sequence from={75} durationInFrames={120}>
+    <Sequence name="02 - The Problem" from={75} durationInFrames={120}>
       <TheProblem />
     </Sequence>
-
-    {/* 3 – Step 01: Export (195–315) */}
-    <Sequence from={195} durationInFrames={120}>
+    <Sequence name="03 - Export Contacts" from={195} durationInFrames={120}>
       <StepScene
         num="01"
         title="Export your contacts"
@@ -761,9 +756,7 @@ export const CRMEnrichmentVideo: React.FC = () => (
         renderGraphic={(f) => <CSVGraphic frame={f} />}
       />
     </Sequence>
-
-    {/* 4 – Step 02: Add skill (315–435) */}
-    <Sequence from={315} durationInFrames={120}>
+    <Sequence name="04 - Add Massive Skill" from={315} durationInFrames={120}>
       <StepScene
         num="02"
         title="Add the Massive skill"
@@ -775,9 +768,7 @@ export const CRMEnrichmentVideo: React.FC = () => (
         renderGraphic={(f, fps) => <SkillGraphic frame={f} fps={fps} />}
       />
     </Sequence>
-
-    {/* 5 – Step 03: Prompt (435–555) */}
-    <Sequence from={435} durationInFrames={120}>
+    <Sequence name="05 - Prompt & Done" from={435} durationInFrames={120}>
       <StepScene
         num="03"
         title="Prompt it — done"
@@ -789,14 +780,10 @@ export const CRMEnrichmentVideo: React.FC = () => (
         renderGraphic={(f) => <PromptGraphic frame={f} />}
       />
     </Sequence>
-
-    {/* 6 – Cost (555–645) */}
-    <Sequence from={555} durationInFrames={90}>
+    <Sequence name="06 - Cost Comparison" from={555} durationInFrames={90}>
       <CostComparison />
     </Sequence>
-
-    {/* 7 – Outro (645–705) */}
-    <Sequence from={645} durationInFrames={60}>
+    <Sequence name="07 - Outro" from={645} durationInFrames={60}>
       <Outro />
     </Sequence>
   </AbsoluteFill>

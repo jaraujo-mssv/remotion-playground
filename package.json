@@ -75,7 +75,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "remotion": "remotion studio",
+    "remotion": "remotion studio --port=3001",
     "render": "remotion render",
     "deploy": "node deploy.mjs"
   }

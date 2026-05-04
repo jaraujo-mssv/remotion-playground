@@ -802,16 +802,16 @@ const PlatformChips: React.FC<{ frame: number }> = ({ frame }) => (
 
 export const MassiveBrandVideo: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: BG }}>
-    <Sequence from={0} durationInFrames={45}>
+    <Sequence name="01 - Logo Intro" from={0} durationInFrames={45}>
       <LogoIntro />
     </Sequence>
-    <Sequence from={45} durationInFrames={120}>
+    <Sequence name="02 - Opening Statement" from={45} durationInFrames={120}>
       <OpeningStatement />
     </Sequence>
-    <Sequence from={165} durationInFrames={90}>
+    <Sequence name="03 - Product Statement" from={165} durationInFrames={90}>
       <ProductStatement />
     </Sequence>
-    <Sequence from={255} durationInFrames={120}>
+    <Sequence name="04 - CRM Enrichment" from={255} durationInFrames={120}>
       <UseCaseSlide
         number="01"
         title="CRM Enrichment"
@@ -824,7 +824,7 @@ export const MassiveBrandVideo: React.FC = () => (
         extraBottom={(f) => <PlatformChips frame={f} />}
       />
     </Sequence>
-    <Sequence from={375} durationInFrames={120}>
+    <Sequence name="05 - Search & GEO" from={375} durationInFrames={120}>
       <UseCaseSlide
         number="02"
         title="Search & GEO"
@@ -836,7 +836,7 @@ export const MassiveBrandVideo: React.FC = () => (
         renderIcon={(f) => <SearchIcon frame={f} />}
       />
     </Sequence>
-    <Sequence from={495} durationInFrames={120}>
+    <Sequence name="06 - Portfolio Management" from={495} durationInFrames={120}>
       <UseCaseSlide
         number="03"
         title="Portfolio Management"
@@ -848,10 +848,10 @@ export const MassiveBrandVideo: React.FC = () => (
         renderIcon={(f) => <PortfolioIcon frame={f} />}
       />
     </Sequence>
-    <Sequence from={615} durationInFrames={90}>
+    <Sequence name="07 - How To Use" from={615} durationInFrames={90}>
       <HowToUse />
     </Sequence>
-    <Sequence from={705} durationInFrames={45}>
+    <Sequence name="08 - Outro" from={705} durationInFrames={45}>
       <Outro />
     </Sequence>
   </AbsoluteFill>
